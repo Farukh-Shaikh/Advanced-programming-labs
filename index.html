@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> calculator </title>
+	<style type="text/css">
+		*{
+	margin-left: 15%;
+	margin-right: 15%;
+	margin-top: 3%;
+}
+#ans{
+	margin-right: 3%;
+	width: 320px;
+	height: 55px;
+	background-color: #2A2A3B;
+	text-align: left;
+	color: white;
+	font-size: 30px;
+
+}
+
+.b1{
+
+	width: 80px;
+	height: 50px;
+	background-color: #E3E2E3;
+	border : 1px solid black;
+	text-align: center;
+	color: black;
+	font-size: 30px;
+}
+.b2{
+
+	width: 80px;
+	height: 50px;
+	background-color: #FF9845;
+	border : 1px solid black;
+	text-align: center;
+	color: white;
+	font-size: 30px;
+
+}
+#eq{
+	background-color: green;
+}
+
+#C{
+	background-color: #FF251A;
+}
+
+.b1:hover{
+	background-color: #FF251A;
+}
+.b2:hover{
+	background-color: #A3EAF3;
+}
+
+h1{
+	text-align: center;
+}
+	</style>
+
+</head>
+<body>
+	<table>
+		<tr>
+			<td colspan="4" id="ans"></td>
+		</tr>
+		<tr>
+			<td class="b2 button" id="multiply" data-num='*'>*</td>
+			<td class="b2 button" id="divide" data-num='/'>/</td>
+			<td class="b2 button" id="subtract" data-num='-'>-</td>
+			<td class="b2 button" id="add" data-num='+'>+</td>
+		</tr>
+		<tr>
+			<td class="b1 button" data-num='.'>.</td>
+			<td class="b1 button" data-num='9'>9</td>
+			<td class="b1 button" data-num='8'>8</td>
+			<td class="b1 button" data-num='7'>7</td>
+		</tr>
+		<tr>
+			<td class="b1 button" data-num='6'>6</td>
+			<td class="b1 button" data-num='5'>5</td>
+			<td class="b1 button" data-num='4'>4</td>
+			<td class="b1 button" data-num='3'>3</td>
+		</tr>
+		<tr>
+			<td class="b1 button" data-num='2'>2</td>
+			<td class="b1 button" data-num='1'>1</td>
+			<td class="b1 button" data-num='0'> 0</td>
+			<td class="b1" id="eq">=</td>
+		</tr>
+		<tr>
+			<td class="b1" id="C">C</td>
+			<td class="b1 button" id="sqr">√</td>
+			<td class="b1 button" id="den">1/x</td>
+			<td class="b1 button" id="square">x2</td>
+		</tr>
+		<tr>
+			<td class="b1" id="mr">MR</td>
+			<td class="b1" id="m+">M+</td>
+			<td class="b1" id="mc">MC</td>
+			<td class="b1" id="ms">MS</td>
+		</tr>
+	</table>
+
+<script type="text/javascript">
+	const buttons = document.querySelectorAll('.button');
+const ans = document.getElementById('ans');
+const equal = document.getElementById('eq');
+const C = document.getElementById('C');
+const sqr = document.getElementById('sqr');
+const square = document.getElementById("square");
+const den = document.getElementById("den");
+const Mr = document.getElementById("mr");
+const Ms = document.getElementById("ms");
+const Mc = document.getElementById("mc");
+const Mplus = document.getElementById("m+");
+
+
+buttons.forEach(function(btn){
+	btn.addEventListener('click' , function(){
+		let number = btn.getAttribute('data-num');
+		ans.innerHTML += number;
+	});
+	
+});
+
+document.addEventListener('keydown', function(event){
+	if(event.key == 'Enter'){equalHandler();}
+	if(event.key == 'C' || event.key == 'c'){clearHandler();}
+	let arr = ['1','2','3','4','5','6','7','8','9','0' , '+','-','*','/'];
+	if(arr.indexOf(event.key) >= 0){
+		ans.innerHTML += event.key;
+	}
+});
+
+
+
+equal.addEventListener('click' , equalHandler);
+
+function equalHandler(){
+	let value1 = eval(ans.innerHTML);
+	ans.innerHTML = value1;	
+	
+}
+
+C.addEventListener('click' , clearHandler);
+function clearHandler(){
+	ans.innerHTML = " ";
+};
+
+sqr.addEventListener('click' , squareRoot);
+
+function squareRoot() {
+	x = parseInt(ans.innerHTML);
+	ans.innerHTML = Math.sqrt(x);
+}
+
+square.addEventListener('click' , square1);
+
+function square1(){
+	x = parseInt(ans.innerHTML);
+	ans.innerHTML = Math.pow(x,2);
+}
+
+den.addEventListener('click' , denm);
+
+function denm(){
+	x = parseInt(ans.innerHTML);
+	ans.innerHTML = 1/x;
+}
+
+var num = 0;
+
+Ms.addEventListener('click' , storeNumber);
+
+function storeNumber(){
+	num = parseInt(ans.innerHTML);
+}
+
+Mr.addEventListener('click' , readnumber);
+
+function readnumber(){
+	ans.innerHTML = num;
+}
+
+Mc.addEventListener('click' , clearnumber);
+
+function clearnumber(){
+	num = 0;
+}
+
+Mplus.addEventListener('click' , mplus);
+
+function mplus(){
+	num = ans.innerHTML;
+}
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
